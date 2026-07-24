@@ -1,5 +1,3 @@
----
-#ingree.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -10,10 +8,11 @@ spec:
   ingressClassName: nginx
   rules:
   - http:
-      paths: /  
-      pathType: Prefix
-      backend:
-        service:
-          name: my-svc
-          port:
-            number: 80
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-svc
+            port:
+              number: 80

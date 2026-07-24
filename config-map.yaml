@@ -4,6 +4,5 @@ kind: ConfigMap
 metadata:
   name: bankapplication-configmap
 data:
-  DB_USER: "cm9vdA=="
-  DB_PASSWORD: "YWRtaW5AMTIz"
-  DB_NAME: "Y3VzdG9tZXJz"
+  DB_HOST: mysqldb
+  DB_PORT: "3306"

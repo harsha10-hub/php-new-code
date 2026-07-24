@@ -1,0 +1,44 @@
+#statefulset.yaml
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  serviceName: mysqldb
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-database
+  template:
+    metadata:
+      labels:
+        app: app-database
+    spec:
+      containers:
+      - name: dbcont
+        image: harsha0310/phpapp:dbimage
+        ports:
+        - containerPort: 3306
+        envFrom:
+        - secretRef:
+            name: bankapplication-secret
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /usr/share/nginx/html/
+    volumeclaimTemplates:
+    - metadata:
+        name: mypvc
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 2Gi
